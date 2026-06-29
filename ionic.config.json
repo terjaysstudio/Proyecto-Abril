@@ -1,0 +1,7 @@
+{
+  "name": "SignoEdu",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
