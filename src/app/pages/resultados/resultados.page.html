@@ -1,0 +1,21 @@
+<ion-content>
+  <div class="center-container ion-padding ion-text-center">
+    <div class="animate-slide-up" style="margin-top: 10vh;">
+      <div class="animate-bounce" style="font-size: 6rem; margin-bottom: -20px;">🎉</div>
+      <h1 style="color: var(--ion-color-primary-shade); font-weight: 900; font-size: 3rem; margin-bottom: 0;">¡Felicidades!</h1>
+      <p style="color: var(--ion-color-medium); font-size: 1.3rem; font-weight: bold;">Has completado la lección</p>
+    </div>
+    
+    <ion-card class="ion-margin-top animate-slide-up delay-2" style="border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);">
+      <ion-card-content style="padding: 40px 15px;">
+        <h3 style="color: var(--ion-color-primary-shade); font-weight: 800; margin: 0; font-size: 1.2rem; text-transform: uppercase;">Puntos Ganados</h3>
+        <h1 style="font-size: 5rem; color: var(--ion-color-secondary); font-weight: 900; margin: 10px 0; text-shadow: 0 5px 15px rgba(112, 196, 255, 0.4);">+{{ puntosObtenidos }}</h1>
+        <p style="color: var(--ion-color-medium); margin-top: 15px; font-weight: 600;">Tu progreso se ha guardado en la nube.</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button expand="block" shape="round" color="primary" (click)="irAInicio()" class="ion-margin-top animate-slide-up delay-3" style="height: 60px; font-weight: bold; font-size: 1.2rem; box-shadow: 0 8px 20px rgba(120, 214, 159, 0.5); --border-radius: 30px; margin-top: 30px;">
+      Regresar al Inicio
+    </ion-button>
+  </div>
+</ion-content>

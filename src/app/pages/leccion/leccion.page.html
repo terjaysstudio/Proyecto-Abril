@@ -1,0 +1,24 @@
+<app-header-app titulo="Lección Activa"></app-header-app>
+
+<ion-content>
+  <div class="center-container ion-padding">
+    <div *ngIf="seniaActual" class="animate-fade-in">
+      <div class="ion-text-center ion-margin-bottom">
+        <h3 style="color: var(--ion-color-primary-shade); font-weight: 900; font-size: 1.8rem; margin-bottom: 5px;">Adivina la Seña</h3>
+        <p style="color: var(--ion-color-medium); margin-top: 0; font-size: 1.1rem;">¿Qué letra representa esta imagen?</p>
+      </div>
+      
+      <div class="animate-slide-up delay-1">
+        <app-tarjeta-senia [imagenUrl]="seniaActual.imagenUrl"></app-tarjeta-senia>
+      </div>
+      
+      <div class="ion-margin-top animate-slide-up delay-2">
+        <app-boton-opcion 
+          *ngFor="let opcion of seniaActual.opciones" 
+          [textoOpcion]="opcion"
+          (opcionElegida)="revisarRespuesta($event)">
+        </app-boton-opcion>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,36 @@
+<app-header-app titulo="Inicio"></app-header-app>
+
+<ion-content>
+  <div class="center-container ion-padding">
+    <div class="ion-text-center ion-margin-bottom animate-fade-in" style="padding-top: 10px;">
+      <h2 style="color: var(--ion-color-primary-shade); font-weight: 900; font-size: 2.2rem; margin-bottom: 5px;">¡Hola, Estudiante!</h2>
+      <p style="color: var(--ion-color-medium); font-size: 1.1rem; margin-top: 0;">¿Qué te gustaría aprender hoy?</p>
+    </div>
+
+    <ion-card color="primary" class="interactive-card ion-margin-bottom animate-slide-up delay-1" (click)="irLeccion()" style="border-radius: 20px; box-shadow: 0 10px 20px rgba(120, 214, 159, 0.4); padding: 10px; background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-primary-shade) 100%);">
+      <ion-card-header>
+        <ion-card-title style="color: white; font-weight: 800; font-size: 1.6rem; display: flex; align-items: center;">
+          <span style="font-size: 2.5rem; margin-right: 15px;">📚</span> Aprender Señas
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content style="color: rgba(255,255,255,0.9); font-size: 1.1rem; line-height: 1.5;">
+        Empieza la lección del Abecedario y pon a prueba tus conocimientos.
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card color="secondary" class="interactive-card ion-margin-bottom animate-slide-up delay-2" (click)="irPerfil()" style="border-radius: 20px; box-shadow: 0 10px 20px rgba(112, 196, 255, 0.4); padding: 10px; background: linear-gradient(135deg, var(--ion-color-secondary) 0%, var(--ion-color-secondary-shade) 100%);">
+      <ion-card-header>
+        <ion-card-title style="color: white; font-weight: 800; font-size: 1.6rem; display: flex; align-items: center;">
+          <span style="font-size: 2.5rem; margin-right: 15px;">👤</span> Mi Perfil
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content style="color: rgba(255,255,255,0.9); font-size: 1.1rem; line-height: 1.5;">
+        Revisa tu progreso, experiencia y las señas que has dominado.
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button fill="clear" color="medium" expand="block" class="ion-margin-top animate-fade-in delay-3" (click)="salir()" style="font-weight: bold; margin-top: 40px; font-size: 1.1rem;">
+      Cerrar Sesión
+    </ion-button>
+  </div>
+</ion-content>

@@ -34,4 +34,68 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+/* Desactivamos el modo oscuro del sistema para forzar el tema claro pastel */
+/* @import "@ionic/angular/css/palettes/dark.system.css"; */
+
+/* --- ESTILOS DINÁMICOS Y ANIMACIONES --- */
+body {
+  background: linear-gradient(135deg, #e0f7fa 0%, #e8f5e9 100%) !important;
+}
+
+ion-content {
+  --background: transparent;
+}
+
+/* Contenedor central para pantallas grandes (Escritorio/Tablet) */
+.center-container {
+  max-width: 450px;
+  margin: 0 auto;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+/* Animaciones */
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-slide-up {
+  opacity: 0;
+  animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.animate-bounce {
+  animation: bounce 2s infinite;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-15px); }
+  60% { transform: translateY(-7px); }
+}
+
+/* Efectos de Hover para tarjetas y botones */
+ion-card.interactive-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+ion-card.interactive-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(120, 214, 159, 0.4) !important;
+}

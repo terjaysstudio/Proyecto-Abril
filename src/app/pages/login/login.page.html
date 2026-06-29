@@ -1,0 +1,47 @@
+<ion-content>
+  <div class="center-container">
+    
+    <!-- PANTALLA DE INTRODUCCIÓN -->
+    <div *ngIf="mostrarIntro" class="ion-padding ion-text-center animate-fade-in" style="margin-top: 15vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <div class="animate-bounce" style="font-size: 6rem; margin-bottom: 10px;">👋</div>
+      <h1 style="color: var(--ion-color-primary-shade); font-weight: 900; font-size: 3rem; margin-bottom: 15px; letter-spacing: -1px;">SignoEdu</h1>
+      
+      <ion-card class="animate-slide-up delay-1" style="border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); background: rgba(255,255,255,0.9); margin-bottom: 30px;">
+        <ion-card-content style="font-size: 1.2rem; color: var(--ion-color-dark); font-weight: 500; line-height: 1.6; padding: 25px;">
+          Aprender lengua de señas nunca fue tan divertido. ¡Pon a prueba tus conocimientos, adivina las letras y suma puntos mientras juegas!
+        </ion-card-content>
+      </ion-card>
+
+      <ion-button expand="block" shape="round" color="secondary" (click)="comenzarLogin()" class="animate-slide-up delay-2" style="height: 60px; font-weight: bold; font-size: 1.2rem; box-shadow: 0 8px 20px rgba(112, 196, 255, 0.5); --border-radius: 30px; width: 100%;">
+        Empezar ahora
+        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+    <!-- PANTALLA DE LOGIN (Pide el nombre) -->
+    <div *ngIf="!mostrarIntro" class="animate-fade-in">
+      <div class="ion-padding ion-text-center" style="margin-top: 15vh;">
+        <div class="animate-bounce" style="font-size: 4rem; margin-bottom: -15px;">🤟</div>
+        <h1 style="color: var(--ion-color-primary-shade); font-weight: 900; font-size: 3.5rem; margin-bottom: 0; letter-spacing: -1px;">SignoEdu</h1>
+      </div>
+
+      <ion-card class="ion-margin animate-slide-up delay-1" style="border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);">
+        <ion-card-header>
+          <ion-card-title class="ion-text-center" style="font-weight: 800; font-size: 1.6rem; color: var(--ion-color-dark);">¡Bienvenido!</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item lines="full" class="ion-margin-bottom" style="--background: transparent;">
+            <ion-label position="floating" color="primary" style="font-weight: 600;">¿Cuál es tu nombre?</ion-label>
+            <ion-input [(ngModel)]="nombre" style="font-size: 1.2rem; font-weight: bold;"></ion-input>
+          </ion-item>
+          
+          <ion-button expand="block" shape="round" color="primary" (click)="entrar()" class="ion-margin-top animate-slide-up delay-2" style="height: 60px; font-weight: bold; font-size: 1.2rem; box-shadow: 0 8px 20px rgba(120, 214, 159, 0.5); --border-radius: 30px;">
+            Comenzar Aventura
+            <ion-icon slot="end" name="checkmark-outline"></ion-icon>
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+  </div>
+</ion-content>
