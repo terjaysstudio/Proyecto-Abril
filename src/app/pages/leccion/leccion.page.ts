@@ -11,11 +11,47 @@ import { AuthService } from '../../services/auth.service';
   standalone: false
 })
 export class LeccionPage implements OnInit {
-  senias: Senia[] = [
-    { id: 1, imagenUrl: 'assets/letra_a.png', opciones: ['A', 'E', 'I', 'O'], respuestaCorrecta: 'A' },
-    { id: 2, imagenUrl: 'assets/letra_b.png', opciones: ['C', 'B', 'D', 'F'], respuestaCorrecta: 'B' },
-    { id: 3, imagenUrl: 'assets/letra_c.png', opciones: ['O', 'Q', 'C', 'G'], respuestaCorrecta: 'C' }
-  ];
+  senias: Senia[] = [];
+
+  ngOnInit() {
+    this.generarLeccion();
+    this.seniaActual = this.senias[this.indiceActual];
+  }
+
+  generarLeccion() {
+    const abecedario = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    // Seleccionamos 10 letras al azar para la lección
+    const letrasSeleccionadas = this.shuffleArray([...abecedario]).slice(0, 10);
+    
+    this.senias = letrasSeleccionadas.map((letra, index) => {
+      return {
+        id: index + 1,
+        imagenUrl: `assets/images/${letra}.png`,
+        opciones: this.generarOpciones(letra, abecedario),
+        respuestaCorrecta: letra
+      };
+    });
+  }
+
+  generarOpciones(correcta: string, todas: string[]): string[] {
+    const opciones = [correcta];
+    while (opciones.length < 4) {
+      const randomLetra = todas[Math.floor(Math.random() * todas.length)];
+      if (!opciones.includes(randomLetra)) {
+        opciones.push(randomLetra);
+      }
+    }
+    return this.shuffleArray(opciones);
+  }
+
+  shuffleArray(array: any[]): any[] {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+  }
 
   seniaActual!: Senia;
   indiceActual: number = 0;
@@ -28,9 +64,7 @@ export class LeccionPage implements OnInit {
     private authService: AuthService
   ) { }
 
-  ngOnInit() {
-    this.seniaActual = this.senias[this.indiceActual];
-  }
+
 
   async revisarRespuesta(opcion: string) {
     if (opcion === this.seniaActual.respuestaCorrecta) {

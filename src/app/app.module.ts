@@ -11,8 +11,14 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 const firebaseConfig = {
-  projectId: 'signoedu-demo'
+  apiKey: "AIzaSyBGQ4UB-iNL4xPWpecufwB41VZDwiGmFzs",
+  authDomain: "signoedu-dabaf.firebaseapp.com",
+  projectId: "signoedu-dabaf",
+  storageBucket: "signoedu-dabaf.firebasestorage.app",
+  messagingSenderId: "644892455453",
+  appId: "1:644892455453:web:7a816fd4cdb829ac50ccf4"
 };
+
 
 @NgModule({
   declarations: [AppComponent],

@@ -21,6 +21,10 @@ export class HomePage {
     this.navCtrl.navigateForward('/perfil');
   }
 
+  irDiccionario() {
+    this.navCtrl.navigateForward('/diccionario');
+  }
+
   async salir() {
     const alert = await this.alertCtrl.create({
       header: 'Salir',
