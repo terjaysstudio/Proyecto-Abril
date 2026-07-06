@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DbService } from '../../services/db.service';
 
 @Component({
   selector: 'app-diccionario',
@@ -10,14 +11,10 @@ export class DiccionarioPage implements OnInit {
 
   letras: { letra: string; imagenUrl: string }[] = [];
 
-  constructor() { }
+  constructor(private dbService: DbService) { }
 
-  ngOnInit() {
-    const abecedario = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-    this.letras = abecedario.map(letra => ({
-      letra,
-      imagenUrl: `assets/images/${letra}.png`
-    }));
+  async ngOnInit() {
+    this.letras = await this.dbService.obtenerSenias();
   }
 
 }

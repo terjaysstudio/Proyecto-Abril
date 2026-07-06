@@ -13,24 +13,33 @@ import { AuthService } from '../../services/auth.service';
 export class LeccionPage implements OnInit {
   senias: Senia[] = [];
 
-  ngOnInit() {
-    this.generarLeccion();
-    this.seniaActual = this.senias[this.indiceActual];
+  async ngOnInit() {
+    await this.cargarYGenerarLeccion();
   }
 
-  generarLeccion() {
-    const abecedario = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-    // Seleccionamos 10 letras al azar para la lección
-    const letrasSeleccionadas = this.shuffleArray([...abecedario]).slice(0, 10);
-    
-    this.senias = letrasSeleccionadas.map((letra, index) => {
-      return {
-        id: index + 1,
-        imagenUrl: `assets/images/${letra}.png`,
-        opciones: this.generarOpciones(letra, abecedario),
-        respuestaCorrecta: letra
-      };
-    });
+  async cargarYGenerarLeccion() {
+    try {
+      const dbSenias = await this.dbService.obtenerSenias();
+      const abecedario = dbSenias.map(s => s.letra);
+      
+      // Seleccionamos 10 señas al azar para la lección
+      const seniasSeleccionadas = this.shuffleArray([...dbSenias]).slice(0, 10);
+      
+      this.senias = seniasSeleccionadas.map((seniaDb, index) => {
+        return {
+          id: index + 1,
+          imagenUrl: seniaDb.imagenUrl,
+          opciones: this.generarOpciones(seniaDb.letra, abecedario),
+          respuestaCorrecta: seniaDb.letra
+        };
+      });
+      
+      if (this.senias.length > 0) {
+        this.seniaActual = this.senias[this.indiceActual];
+      }
+    } catch (error) {
+      console.error('Error al generar la lección desde base de datos:', error);
+    }
   }
 
   generarOpciones(correcta: string, todas: string[]): string[] {
