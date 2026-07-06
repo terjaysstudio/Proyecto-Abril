@@ -30,13 +30,13 @@ export class DbService {
     return 0;
   }
 
-  async obtenerSenias(): Promise<{ letra: string; imagenUrl: string; opciones: string[]; respuestaCorrecta: string }[]> {
+  async obtenerSenias(): Promise<{ letra: string; imagenUrl: string; opciones: string[]; respuestaCorrecta: string; tipo: string }[]> {
     try {
       const colRef = collection(this.firestore, 'senias');
       const q = query(colRef, orderBy('letra'));
       const querySnapshot = await getDocs(q);
 
-      const list = querySnapshot.docs.map(doc => doc.data() as { letra: string; imagenUrl: string; opciones: string[]; respuestaCorrecta: string });
+      const list = querySnapshot.docs.map(doc => doc.data() as { letra: string; imagenUrl: string; opciones: string[]; respuestaCorrecta: string; tipo: string });
 
       // Si por alguna razón la colección está vacía o incompleta, usamos fallback local
       if (list.length < 26) {
@@ -51,7 +51,7 @@ export class DbService {
     }
   }
 
-  private obtenerSeniasLocalFallback(): { letra: string; imagenUrl: string; opciones: string[]; respuestaCorrecta: string }[] {
+  private obtenerSeniasLocalFallback(): { letra: string; imagenUrl: string; opciones: string[]; respuestaCorrecta: string; tipo: string }[] {
     const todas = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     return todas.map(letra => {
       const opciones = [letra];
@@ -64,7 +64,7 @@ export class DbService {
         const j = Math.floor(Math.random() * (i + 1));
         [opciones[i], opciones[j]] = [opciones[j], opciones[i]];
       }
-      return { letra, imagenUrl: `assets/images/${letra}.png`, opciones, respuestaCorrecta: letra };
+      return { letra, imagenUrl: `assets/images/${letra}.png`, opciones, respuestaCorrecta: letra, tipo: 'Adivina la señal' };
     });
   }
 }

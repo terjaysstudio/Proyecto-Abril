@@ -28,7 +28,8 @@ export class LeccionPage implements OnInit {
         id: index + 1,
         imagenUrl: seniaDb.imagenUrl,
         opciones: seniaDb.opciones,
-        respuestaCorrecta: seniaDb.respuestaCorrecta
+        respuestaCorrecta: seniaDb.respuestaCorrecta,
+        tipo: seniaDb.tipo
       }));
 
       if (this.senias.length > 0) {

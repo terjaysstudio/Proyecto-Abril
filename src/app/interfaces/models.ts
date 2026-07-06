@@ -8,4 +8,5 @@ export interface Senia {
   imagenUrl: string;
   opciones: string[];
   respuestaCorrecta: string;
+  tipo: string;
 }

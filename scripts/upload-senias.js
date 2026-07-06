@@ -38,10 +38,10 @@ async function updateQuizData() {
     const opciones = generarOpciones(letra, abecedario);
     try {
       const docRef = doc(db, 'senias', letra);
-      // Usamos setDoc con { merge: true } para conservar la imagenUrl que ya está en Firestore
       await setDoc(docRef, {
         opciones: opciones,
-        respuestaCorrecta: letra
+        respuestaCorrecta: letra,
+        tipo: 'Adivina la señal'
       }, { merge: true });
       console.log(`¡Preguntas y respuestas para seña ${letra} actualizadas con éxito!`);
     } catch (error) {
