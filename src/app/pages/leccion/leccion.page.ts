@@ -20,20 +20,17 @@ export class LeccionPage implements OnInit {
   async cargarYGenerarLeccion() {
     try {
       const dbSenias = await this.dbService.obtenerSenias();
-      const abecedario = dbSenias.map(s => s.letra);
-      
+
       // Seleccionamos 10 señas al azar para la lección
       const seniasSeleccionadas = this.shuffleArray([...dbSenias]).slice(0, 10);
-      
-      this.senias = seniasSeleccionadas.map((seniaDb, index) => {
-        return {
-          id: index + 1,
-          imagenUrl: seniaDb.imagenUrl,
-          opciones: this.generarOpciones(seniaDb.letra, abecedario),
-          respuestaCorrecta: seniaDb.letra
-        };
-      });
-      
+
+      this.senias = seniasSeleccionadas.map((seniaDb, index) => ({
+        id: index + 1,
+        imagenUrl: seniaDb.imagenUrl,
+        opciones: seniaDb.opciones,
+        respuestaCorrecta: seniaDb.respuestaCorrecta
+      }));
+
       if (this.senias.length > 0) {
         this.seniaActual = this.senias[this.indiceActual];
       }
@@ -42,16 +39,6 @@ export class LeccionPage implements OnInit {
     }
   }
 
-  generarOpciones(correcta: string, todas: string[]): string[] {
-    const opciones = [correcta];
-    while (opciones.length < 4) {
-      const randomLetra = todas[Math.floor(Math.random() * todas.length)];
-      if (!opciones.includes(randomLetra)) {
-        opciones.push(randomLetra);
-      }
-    }
-    return this.shuffleArray(opciones);
-  }
 
   shuffleArray(array: any[]): any[] {
     const newArray = [...array];

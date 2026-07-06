@@ -1,7 +1,5 @@
 const { initializeApp } = require('firebase/app');
 const { getFirestore, doc, setDoc } = require('firebase/firestore');
-const fs = require('fs');
-const path = require('path');
 
 const firebaseConfig = {
   apiKey: "AIzaSyBGQ4UB-iNL4xPWpecufwB41VZDwiGmFzs",
@@ -16,32 +14,42 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const abecedario = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-const imagesDir = path.join(__dirname, '../src/assets/images');
 
-async function upload() {
-  console.log('Iniciando subida de imágenes a Firestore...');
-  for (const letra of abecedario) {
-    const filePath = path.join(imagesDir, `${letra}.png`);
-    if (fs.existsSync(filePath)) {
-      const fileBuffer = fs.readFileSync(filePath);
-      const base64 = `data:image/png;base64,${fileBuffer.toString('base64')}`;
-      
-      try {
-        const docRef = doc(db, 'senias', letra);
-        await setDoc(docRef, {
-          letra: letra,
-          imagenUrl: base64
-        });
-        console.log(`¡Seña ${letra} subida con éxito!`);
-      } catch (error) {
-        console.error(`Error al subir la seña ${letra}:`, error);
-      }
-    } else {
-      console.warn(`Archivo no encontrado: ${filePath}`);
+function generarOpciones(correcta, todas) {
+  const opciones = [correcta];
+  while (opciones.length < 4) {
+    const randomLetra = todas[Math.floor(Math.random() * todas.length)];
+    if (!opciones.includes(randomLetra)) {
+      opciones.push(randomLetra);
     }
   }
-  console.log('Proceso de subida finalizado.');
+  // Mezclar opciones
+  const newArray = [...opciones];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+}
+
+async function updateQuizData() {
+  console.log('Iniciando actualización de opciones y respuestas del quiz en Firestore...');
+  for (const letra of abecedario) {
+    const opciones = generarOpciones(letra, abecedario);
+    try {
+      const docRef = doc(db, 'senias', letra);
+      // Usamos setDoc con { merge: true } para conservar la imagenUrl que ya está en Firestore
+      await setDoc(docRef, {
+        opciones: opciones,
+        respuestaCorrecta: letra
+      }, { merge: true });
+      console.log(`¡Preguntas y respuestas para seña ${letra} actualizadas con éxito!`);
+    } catch (error) {
+      console.error(`Error al actualizar la seña ${letra}:`, error);
+    }
+  }
+  console.log('Proceso de actualización finalizado.');
   process.exit(0);
 }
 
-upload();
+updateQuizData();
